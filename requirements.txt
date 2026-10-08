@@ -1,7 +1,6 @@
-# PyTorch official CPU wheel index (Rule 5: CPU-first, no GPU/CUDA)
 --extra-index-url https://download.pytorch.org/whl/cpu
 
-# Core deep learning & tracking (CPU-only)
+# Core deep learning & tracking
 torch>=2.2.0,<3.0.0
 torchvision>=0.17.0,<1.0.0
 ultralytics>=8.3.0,<9.0.0
