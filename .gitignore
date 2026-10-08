@@ -30,6 +30,7 @@ ENV/
 
 # Environment Variables & Secrets (Rule 7)
 .env
+.env.example
 *.local.env
 *.key
 *.pem
