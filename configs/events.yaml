@@ -1,0 +1,45 @@
+# Event detection thresholds for CCTV zone event generation.
+# Used by scripts/make_events.py via cctv.events.EventConfig.
+#
+# All numeric values here are the source of truth — no magic numbers in code.
+
+event_detection:
+  # A footpoint must be inside the zone continuously for this long
+  # before a ZONE_ENTER event is emitted (debounce against edge flicker).
+  min_enter_s: 1.0
+
+  # A footpoint must be outside the zone continuously for this long
+  # before a ZONE_EXIT event is emitted (debounce against transient exits).
+  exit_grace_s: 2.0
+
+  # Tracks shorter than this are treated as detection noise and dropped.
+  min_track_len_s: 1.0
+
+  # When building ZONE_OCCUPIED intervals, gaps shorter than this between
+  # consecutive occupancy spans are merged into a single interval.
+  occupied_merge_gap_s: 2.0
+
+  # Intersection-over-Union threshold used in the identity_uncertain "overlap"
+  # check: two boxes must overlap by at least this fraction of their union.
+  overlap_iou_thresh: 0.3
+
+  # If at least this fraction of the event's supporting frames show the
+  # track's box overlapping another track's box, identity_uncertain = True.
+  overlap_fraction_thresh: 0.2
+
+  # If the track has a gap larger than this (in seconds) inside the event's
+  # time span, identity_uncertain = True due to potential fragmentation.
+  gap_s_thresh: 1.0
+
+  # Minimum IoU between two tracks whose time spans overlap or are within
+  # gap_s_thresh of each other to flag them as handoff candidates (rule c).
+  # Provisional threshold set from one 16-second clip; must be validated on
+  # real dataset with ground truth.
+  handoff_iou_thresh: 0.2
+
+  # Maximum duration (in seconds) during which two tracks can coexist while
+  # still being considered a succession hand-off candidate (rule c). If two
+  # tracks coexist longer than this, they are concurrent tracks, not a hand-off.
+  # Provisional threshold set from one 16-second clip; must be validated on
+  # real dataset with ground truth.
+  max_coexist_s: 1.5

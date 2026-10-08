@@ -1,0 +1,27 @@
+# PyTorch official CPU wheel index (Rule 5: CPU-first, no GPU/CUDA)
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# Core deep learning & tracking (CPU-only)
+torch>=2.2.0,<3.0.0
+torchvision>=0.17.0,<1.0.0
+ultralytics>=8.3.0,<9.0.0
+
+# Computer Vision & Video
+opencv-python>=4.8.0,<5.0.0
+imageio-ffmpeg>=0.4.9,<1.0.0
+
+# Data manipulation & schemas
+numpy>=1.26.0,<3.0.0
+pandas>=2.0.0,<3.0.0
+pydantic>=2.0.0,<3.0.0
+pyyaml>=6.0.0,<7.0.0
+python-dotenv>=1.0.0,<2.0.0
+
+# UI & Query interface
+streamlit>=1.30.0,<2.0.0
+
+# ByteTrack dependency (linear assignment problem solver)
+lap>=0.5.12,<1.0.0
+
+# Testing
+pytest>=8.0.0,<9.0.0

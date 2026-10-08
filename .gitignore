@@ -1,0 +1,104 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+*.npy
+.ipynb_checkpoints/
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment Variables & Secrets (Rule 7)
+.env
+*.local.env
+*.key
+*.pem
+*.cert
+*.crt
+*.pfx
+credentials/
+
+# Testing & Linting
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Databases (Rule 7)
+*.db
+*.sqlite
+*.sqlite3
+data/db/*
+!data/db/.gitkeep
+
+# Videos, Images, Frames & Datasets (Rule 7)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.webm
+*.png
+*.jpg
+*.jpeg
+data/raw/*
+!data/raw/.gitkeep
+data/clips/*
+!data/clips/.gitkeep
+data/output/
+data/input/
+frames/
+zones_preview*.png
+
+# Model weights & caches (Rule 7)
+*.pt
+*.pth
+*.onnx
+*.engine
+*.tflite
+models/
+weights/
+
+# Backup & duplicate config files
+configs/zones_cam01.v*.json
+configs/zones_cam01.FAKE.json
+configs/*.backup.json
+*.backup.json
+
+# Agent, tools, and scratch folders
+.gemini/
+.agent/
+.agents/
+brain/
+scratch/
+tmp/
+logs/
+*.log
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

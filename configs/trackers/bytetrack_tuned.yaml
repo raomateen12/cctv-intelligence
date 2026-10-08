@@ -1,0 +1,40 @@
+# ByteTrack tuned for CCTV scenes with occlusion and far-field persons.
+# Based on ultralytics 8.4.x default bytetrack.yaml.
+#
+# PROBLEMS WE ARE SOLVING:
+#   (1) Far-left workers near pillar never detected → need lower confidence thresholds
+#       so faint/small detections survive the tracker's first-stage match gate.
+#   (2) ID switches when a person re-emerges from behind a pillar → need a larger
+#       track_buffer so the lost track is kept alive long enough to re-associate.
+#
+# CHANGED from default (default value shown after →):
+#   track_high_thresh : 0.15  → was 0.25
+#     First-stage match gate: a box must reach this score to attempt high-conf match.
+#     Lowering it lets weakly-visible persons (small / far away) enter the first stage.
+#     Trade-off: more false positives may create spurious short tracks.
+#
+#   new_track_thresh  : 0.15  → was 0.25
+#     A detection must reach this score to be initialised as a brand-new track.
+#     Match with track_high_thresh so a detection that passes the gate can also
+#     start its own track when unmatched (avoids "detected but never tracked" gaps).
+#
+#   track_buffer      : 90   → was 30
+#     Number of frames a lost track is kept alive while waiting to re-associate.
+#     At stride=10 and 50 fps the tracker sees ~5 processed-frames/sec; 90 frames
+#     means ≈18 processed frames ≈ ~3.6 seconds of occlusion tolerated before the
+#     track is deleted and a new ID is assigned on re-emergence.
+#     Trade-off: longer buffers slightly increase memory use and may cause delayed
+#     ID-switch resolution if two persons have very similar trajectories.
+#
+# UNCHANGED from default:
+#   track_low_thresh  : 0.1  — second-stage recovery threshold (kept to avoid noise)
+#   match_thresh      : 0.8  — IoU similarity gate (fine for this scene)
+#   fuse_score        : True — blending detector score with motion cost helps weak dets
+
+tracker_type: bytetrack
+track_high_thresh: 0.15
+track_low_thresh: 0.1
+new_track_thresh: 0.15
+track_buffer: 90
+match_thresh: 0.8
+fuse_score: True

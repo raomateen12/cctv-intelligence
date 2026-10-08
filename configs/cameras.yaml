@@ -1,0 +1,33 @@
+# Camera configurations
+default_settings:
+  device: "cpu"
+  frame_stride: 5
+  img_size: 640
+  max_seconds: null
+
+cameras:
+  - id: "cam_entrance"
+    name: "Main Entrance Camera"
+    source_uri: "data/raw/cam_entrance.mp4"
+    fps: 25.0
+    zones:
+      - name: "doorway"
+        polygon:
+          - [100, 150]
+          - [300, 150]
+          - [300, 400]
+          - [100, 400]
+        type: "entry_exit"
+
+  - id: "cam_parking"
+    name: "Parking Lot Camera"
+    source_uri: "data/raw/cam_parking.mp4"
+    fps: 25.0
+    zones:
+      - name: "restricted_bay"
+        polygon:
+          - [200, 200]
+          - [500, 200]
+          - [500, 450]
+          - [200, 450]
+        type: "restricted"

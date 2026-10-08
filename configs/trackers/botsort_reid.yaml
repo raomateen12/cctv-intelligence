@@ -1,0 +1,53 @@
+# BoT-SORT with ReID enabled — CPU-safe "auto" mode.
+# Based on ultralytics 8.4.x installed botsort.yaml (read from .venv, not guessed).
+#
+# ReID FEASIBILITY (verified against reid.py source):
+#   with_reid: True + model: auto → uses build_encoder() "auto" path which re-uses
+#   features from the detector's own backbone (second-to-last layer). This requires
+#   NO separate model download and NO extra weights on disk. It works on CPU.
+#   Cost vs plain BoT-SORT: light — one extra numpy operation per detection crop.
+#
+# CHANGED from default:
+#   with_reid        : True   → was False
+#     Activates the appearance-similarity cost alongside the IoU/motion cost when
+#     matching detections to lost tracks. Helps correct post-occlusion re-association
+#     even when the person's predicted position has drifted.
+#
+#   model            : auto   → was auto (unchanged, but explicit)
+#     "auto" = use detector backbone features; requires no download.
+#     To use a dedicated ReID checkpoint (e.g. yolo26n-reid.onnx from ultralytics
+#     assets) replace "auto" with the model name — this WILL trigger a download.
+#
+#   track_high_thresh: 0.15  → was 0.25
+#     Same reasoning as bytetrack_tuned: admit far-field/partial detections.
+#
+#   new_track_thresh : 0.15  → was 0.25
+#     Consistent with track_high_thresh.
+#
+#   track_buffer     : 90   → was 30
+#     Keep lost tracks alive ≈3.6 s at stride=10/50fps to survive pillar occlusions.
+#
+# UNCHANGED from default:
+#   track_low_thresh : 0.1
+#   match_thresh     : 0.8
+#   fuse_score       : True
+#   gmc_method       : sparseOptFlow  (global motion compensation; safe on CPU)
+#   proximity_thresh : 0.5
+#   appearance_thresh: 0.8
+
+tracker_type: botsort
+track_high_thresh: 0.15
+track_low_thresh: 0.1
+new_track_thresh: 0.15
+track_buffer: 90
+match_thresh: 0.8
+fuse_score: True
+
+# BoT-SORT specifics
+gmc_method: sparseOptFlow
+
+# ReID — "auto" mode: uses detector backbone features, no extra download, CPU-safe
+proximity_thresh: 0.5
+appearance_thresh: 0.8
+with_reid: True
+model: auto
