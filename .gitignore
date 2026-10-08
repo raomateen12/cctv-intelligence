@@ -95,6 +95,11 @@ tmp/
 logs/
 *.log
 
+# Local internal documentation (kept local, excluded from remote)
+PROJECT_RULES.md
+README.md
+docs/
+
 # IDE / OS
 .idea/
 .vscode/
